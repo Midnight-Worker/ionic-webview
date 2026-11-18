@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ionic + Python</title>
+  <link rel="stylesheet" href="./ionic/css/ionic.bundle.css">
+  <script type="module" src="./ionic/dist/ionic/ionic.esm.js"></script>
+</head>
+<body>
+  <ion-app>
+    <ion-content class="ion-padding">
+      <ion-button id="knopf" disabled>Python-Uhrzeit abfragen</ion-button>
+      <p id="ausgabe" role="status"></p>
+    </ion-content>
+  </ion-app>
+
+  <script>
+    const knopf = document.querySelector("#knopf");
+    const ausgabe = document.querySelector("#ausgabe");
+
+    window.addEventListener("pywebviewready", () => {
+      knopf.removeAttribute("disabled");
+    });
+
+    knopf.addEventListener("click", async () => {
+      ausgabe.textContent = await window.pywebview.api.uhrzeit();
+    });
+  </script>
+</body>
+</html>
